@@ -1,15 +1,18 @@
-# Ruby::Hackrf
+# Hackrf
+This is a major work-in-progress. Still usable in its current form, but feel free to contribute!
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ruby/hackrf`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
 
 ## Installation
+
+Before you can start using this gem, you'll need to install `libhackrf`:
+```
+$ sudo apt install libhackrf-dev
+```
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ruby-hackrf'
+gem 'hackrf'
 ```
 
 And then execute:
@@ -18,11 +21,28 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install ruby-hackrf
+    $ gem install hackrf
 
 ## Usage
 
-TODO: Write usage instructions here
+Basic usage is simple:
+
+```ruby
+require 'hackrf'
+
+HackRF::Device::Radio.open do |hackrf|
+  info = HackRF::Device::Info.new(hackrf)
+  puts info.board_id
+  hackrf.frequency = 433.0 * (10 ** 6)
+  hackrf.sample_rate = 44.8 * (10 ** 3)
+
+  hackrf.rx do |transfer|
+      puts transfer.buffer.dump
+  end
+end
+```
+
+This library makes use of FFI bindings to the libhackrf API, so the [official documentation](https://github.com/dodgymike/hackrf-wiki/blob/master/libHackRF-API.md) should prove useful.
 
 ## Development
 
