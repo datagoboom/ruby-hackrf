@@ -1,4 +1,4 @@
-require_relative '../lib/hackrf'
+require 'hackrf'
 
 HackRF::Device::Radio.open do |hackrf|
   info = HackRF::Device::Info.new(hackrf)

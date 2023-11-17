@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in ruby-hackrf.gemspec
+# Specify your gem's dependencies in hackrf.gemspec
 gemspec
 
 gem "rake", "~> 13.0"
